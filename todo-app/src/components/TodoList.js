@@ -1,4 +1,5 @@
 import React from "react";
+import {Link} from "react-router-dom";
 import TodoCard from "./TodoCard";
 const TodoList = (props) => {
     const completeTodoHandler = (id) => {
@@ -10,8 +11,17 @@ const TodoList = (props) => {
         );
     });
     return (
+        <div className="main">
+            <h2>
+                Todo List
+                <Link to="/add">
+                <button className="ui button blue" style={{float:"right"}}>Add Task</button>
+                </Link>
+            </h2>
         <div className="ui celled list">
             {renderTodoList}
+        </div>
+
         </div>
     );
 };
