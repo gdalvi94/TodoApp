@@ -11,6 +11,8 @@ import EditTodo from './EditTodo';
 function App() {
   const LOCAL_STORAGE_KEY = "todos";
   const [todos, setTodos] = useState([]);
+  const [search, setSearch] = useState("");
+  const [searchRes, setSearchRes] = useState([]);
   // Retrive todos
   const retrieveTodos = async () => {
     const response = await api.get("/todos");
@@ -26,7 +28,14 @@ function App() {
     const response = await api.post("/todos", request)
     setTodos([...todos, response.data]);
   };
-  const updateTodoHandler = () => {
+  const updateTodoHandler = async (todo) => {
+    const response = await api.put(`/todos/${todo.id}`, todo)
+    const { id, name, desc } = response.data;
+    setTodos(
+      todos.map((todo) => {
+        return todo.id === id ? { ...response.data } : todo;
+      })
+    );
 
   };
   const removeTodoHandler = async (id) => {
@@ -36,6 +45,19 @@ function App() {
     });
     setTodos(newTodoList);
   };
+  const searchHandler = (search) => {
+    setSearch(search);
+    if (search !== "") {
+      const newTodoList = todos.filter((todo) => {
+        return Object.values(todo).join("").toLowerCase().includes(search.toLowerCase());
+
+      });
+      setSearchRes(newTodoList);
+    }
+    else {
+      setSearchRes(todos);
+    }
+  }
   useEffect(() => {
     // const retriveTodos = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
     // if(retriveTodos) setTodos(retriveTodos);
@@ -53,7 +75,7 @@ function App() {
       <Router>
         <Header />
         <Routes>
-          <Route path="/" element={<TodoList todos={todos} getTodoId={removeTodoHandler} />} />
+          <Route path="/" element={<TodoList todos={search.length < 1 ? todos : searchRes} getTodoId={removeTodoHandler} term={search} searchKeyword={searchHandler} />} />
           <Route path="/add" element={<AddTodo addTodoHandler={addTodoHandler} />} />
           <Route path="/edit" element={<EditTodo todos={todos} updateTodoHandler={updateTodoHandler} />} />
           <Route path="/todo/:id" element={<TodoDetails />} />

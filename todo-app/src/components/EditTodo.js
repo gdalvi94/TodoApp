@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 
-function EditTodo() {
+function EditTodo({ updateTodoHandler }) {
 
   const location = useLocation();
   const { id, name: existingName, desc: existingDesc } = location.state.todo;
@@ -18,7 +18,8 @@ function EditTodo() {
       alert("All the fields are mandatory");
       return;
     }
-    // updateHandler({ id, name, desc });
+    updateTodoHandler({ id, name, desc });
+
 
     navigate("/");
   };

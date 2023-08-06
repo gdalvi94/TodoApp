@@ -3,7 +3,6 @@ import todo from '../images/todo.png';
 import { Link } from "react-router-dom";
 const TodoCard = (props) => {
     const { id, name, desc } = props.todo;
-    console.log("New", props.todo);
 
 
     return (

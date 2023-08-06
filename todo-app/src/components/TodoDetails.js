@@ -1,28 +1,30 @@
 import React, { useEffect, useState } from "react";
 import task from '../images/task.jpeg';
 import { Link, useParams } from "react-router-dom";
-import { useLocation } from "react-router-dom";
+import api from "../api/todos";
+
 const TodoDetails = () => {
-    const location = useLocation();
-    console.log("detail", location);
     const { id } = useParams();
     const [todo, setTodo] = useState();
     const [error, setError] = useState();
 
     useEffect(() => {
-        const fetchTodoDetails = () => {
+        const fetchTodoDetails = async () => {
             try {
                 // Assuming you have stored your todos in local storage
-                const todosFromLocalStorage = JSON.parse(localStorage.getItem("todos"));
+                // const todosFromLocalStorage = JSON.parse(localStorage.getItem("todos"));
+
+                const response = await api.get(`/todos/${id}`);
+                const { name, desc } = response.data;
 
                 // Find the todo with the matching 'id' in the local storage data
-                const foundTodo = todosFromLocalStorage.find(todo => todo.id === id);
+                // const foundTodo = todosFromLocalStorage.find(todo => todo.id === id);
 
-                if (!foundTodo) {
+                if (!response.data) {
                     setError("Todo not found");
                     return;
                 }
-                setTodo(foundTodo);
+                setTodo(response.data);
             } catch (error) {
                 console.error("Error fetching todo details:", error);
                 setError("Error fetching todo details");
