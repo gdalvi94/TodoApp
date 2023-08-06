@@ -1,19 +1,19 @@
 {
   "todos": [
     {
-      "id": "6da66b4f-70d5-46ab-9465-6d1d63bbd30e",
-      "name": "Gayatri Rajendra Dalvi",
-      "desc": "10 copies"
+      "id": "616f4836-1e4e-4f5c-8cee-f811d4683fd1",
+      "name": "LeetCode and Hackerrank",
+      "desc": "Complete 10 String questions"
     },
     {
-      "id": "cba62218-0927-42aa-8358-060f15f6ccc4",
-      "name": "Gayatri Dalvi",
-      "desc": "Birthday Party at 6pm"
+      "id": "3453180c-e027-41a2-bf32-1336dda00ee2",
+      "name": "Target",
+      "desc": "Onion, Garlic, Butter"
     },
     {
-      "id": "7e64f53f-a516-46cb-a8cd-4e362c48f168",
-      "name": "Party",
-      "desc": "10 copy"
+      "id": "d1d0c36d-a1ed-4a99-8789-5e0c801178a2",
+      "name": "Indeed and LinkedIn",
+      "desc": "15 Applications"
     }
   ]
 }
